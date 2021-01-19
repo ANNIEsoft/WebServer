@@ -1,5 +1,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> <title>Monitoring</title>
+<meta http-equiv="refresh" content="180"> <!-- Refresh every 3mins -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 </head>
 
@@ -8,8 +14,6 @@
  <link rel="stylesheet" href="https://code.getmdl.io/1.1.2/material.indigo-deep_purple.min.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-<meta http-equiv="Pragma" content="no-cache"/>
-<meta http-equiv="Expires" content="0"/>
   <link rel="stylesheet" href="styles.css"> 
 <body>
 
@@ -73,8 +77,30 @@ Monitoring</span>
 <!--<p> <a href="/cgi-bin/monitoring.cgi">All Plots</a> , <a href="./MRDSummary.html">MRD Summary</a> , <a href="./MRDLastFile.html"> MRD LastFile</a> , <a href="./MRDHitmaps.html"> MRD Hitmaps</a> , <a href="./MRDTimeEvolution.html"> MRD TimeEvolution</a> , <a href="./MRDRates.html"> MRD Rates</a> , <a href="./TankSummary.html"> Tank Summary</a> , <a href="./TankElectronics.html"> Tank Electronics</a> , <a href="./TankTimeEvolution.html"> Tank TimeEvolution</a> , <a href="./TankFrequency.html"> Tank Frequency</a> , <a href="./TankBuffer.html"> Tank Buffer</a>
 </p>-->
 
+<p> <a href="./ChecklistPrint.html">Print version</a> </p>
+
 <p>  </p>
 
+<img src="./monitoringplots/DAQInfo_current.png" width=35% height="40%">
+<img src="./monitoringplots/DAQ_VMEServices_current_24h.png"  width="25%" height="40%">
+<img src="./monitoringplots/DAQFileSize_lastDay.png"  width="37%" height="40%">
+<p> </p>
+<hr>
+<img src="./monitoringplots/DAQInfo_current_Diskspace.png" width=29% height="40%">
+<img src="./monitoringplots/DAQMemory_lastDay.png"  width="33%" height="40%">
+<img src="./monitoringplots/DAQCPU_lastDay.png"  width="33%" height="40%">
+<p> </p>
+<hr>
+<!-- <p> <b> VME 01 </b> </p>
+<div id="content1"></div>
+<hr>
+<p> <b> VME 02 </b> </p>
+<div id="content2"></div>
+<hr>
+<p> <b> VME 03 </b> </p>
+<div id="content3"></div>
+<p></p>
+<hr> -->
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
 <div style="width:20%; overflow: hidden; float: left;"> <b>1)</b> Are MRD files periodically updating? </div>
 <img src="./monitoringplots/MRD_FileHistory_current_2h.png"  width="35%" height="40%">
@@ -87,21 +113,21 @@ Monitoring</span>
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
 <div style="width:20%; overflow: hidden; float: left;"> <b>3)</b> Are all 3 features (background/beam/cosmic) visible in MRD data? </div>
-<img src="./monitoringplots/MRDTDCHist_Cluster_last20Files.png"  width="35%" height="40%">
+<img src="./monitoringplots/MRDTDCHist_ClusterBeam_last20Files.png"  width="35%" height="40%">
 <img src="./monitoringplots/MRDTDCHist_Cluster_lastFile_Reference.png"  width="35%" height="40%">
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
-<div style="width:20%; overflow: hidden; float: left;"> <b>4)</b> Are the MRD trigger rates in the expected range? (Beam: 4-5Hz, Cosmic: 0.2-0.3Hz) </div>
+<div style="width:20%; overflow: hidden; float: left;"> <b>4)</b> Are the MRD trigger rates in the expected range? (Beam: current repetition rate, normal operations 4-5Hz, Cosmic: 0.5Hz) </div>
 <img src="./monitoringplots/MRDTriggertypes_timeevolution_lastDay.png"  width="35%" height="40%">
 <img src="./monitoringplots/MRDTriggertypes_timeevolution_lastDay_Reference.png"  width="35%" height="40%">
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
-<div style="width:20%; overflow: hidden; float: left;"> <b>5)</b> Did all MRD TDC slots register hits in the last file? </div>
+<div style="width:20%; overflow: hidden; float: left;"> <b>5)</b> Did all MRD TDC slots register hits in the last file? Check the plot for completely empty TDC slots. </div>
 <img src="./monitoringplots/MRDHitmap_lastFile.png"  width="35%" height="40%">
 <img src="./monitoringplots/MRDHitmap_lastFile_Reference.png"  width="35%" height="40%">
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
-<div style="width:20%; overflow: hidden; float: left;"> <b>6)</b> Do all active MRD channels have a rate larger than 0?</div>
+<div style="width:20%; overflow: hidden; float: left;"> <b>6)</b> Do all active MRD channels have a rate larger than 0? TDC channels with a rate of 0 will appear as white boxes in the plot. (Blue: low/normal rate, yellow: slightly higher rate) </div>
 <img src="./monitoringplots/MRDRates_Electronics_lastFile.png"  width="35%" height="40%">
 <img src="./monitoringplots/MRDRates_Electronics_lastFile_Reference.png"  width="35%" height="40%">
 <p> </p>
@@ -111,27 +137,27 @@ Monitoring</span>
 <img src="./monitoringplots/PMT_Ped_Electronics_lastFile_Reference.jpg"  width="35%" height="40%">
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
-<div style="width:20%; overflow: hidden; float: left;"> <b>8a)</b> Do all active PMTs have a rate larger than 0?</div>
+<div style="width:20%; overflow: hidden; float: left;"> <b>8)</b> Do all active PMTs have a rate larger than 0? PMTs with a rate of 0 will appear as white boxes in the plot. (Blue: low/normal rate, yellow: higher rate) </div>
 <img src="./monitoringplots/PMT_Rate_Electronics_lastFile.jpg"  width="35%" height="40%">
 <img src="./monitoringplots/PMT_Rate_Electronics_lastFile_Reference.jpg"  width="35%" height="40%">
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
-<div style="width:20%; overflow: hidden; float: left;"> <b>8b)</b> Do all active PMTs have a rate larger than 0? (alternative view) </div>
+<div style="width:20%; overflow: hidden; float: left;"> <b>9)</b> Did all VME ADC slots register hits in the last file? Check the plot for completely empty ADC slots. </div>
 <img src="./monitoringplots/PMTHitmap_lastFile.png"  width="35%" height="40%">
 <img src="./monitoringplots/PMTHitmap_lastFile_Reference.png"  width="35%" height="40%">
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
-<div style="width:20%; overflow: hidden; float: left;"> <b>9)</b> Are the trigger rates roughly in the right order of magnitude?</div>
+<div style="width:20%; overflow: hidden; float: left;"> <b>10)</b> Are the trigger rates roughly in the right order of magnitude? The 1D rate should correspond to the current beam repetition rate and the MRD Cosmic rate should be larger than 0.</div>
 <img src="./monitoringplots/Trigger_Rate_selected_lastFile.png"  width="35%" height="40%">
 <img src="./monitoringplots/Trigger_Rate_selected_lastFile_Reference.png"  width="35%" height="40%">
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
-<div style="width:20%; overflow: hidden; float: left;"> <b>10)</b> Does the BRF buffer look like the reference?</div>
+<div style="width:20%; overflow: hidden; float: left;"> <b>11)</b> Does the BRF (Booster RF) buffer look like the reference?</div>
 <img src="./monitoringplots/PMT_Temp_BRF.jpg"  width="35%" height="40%">
 <img src="./monitoringplots/PMT_Temp_BRF_Reference.jpg"  width="35%" height="40%">
 <p> </p>
 <div style="width:3%; overflow: hidden; float: left;"> &ensp;</div>
-<div style="width:20%; overflow: hidden; float: left;"> <b>11)</b> Does the RWM buffer look like the reference?</div>
+<div style="width:20%; overflow: hidden; float: left;"> <b>12)</b> Does the RWM (Resistive Wall Monitor) buffer look like the reference?</div>
 <img src="./monitoringplots/PMT_Temp_RWM.jpg"  width="35%" height="40%">
 <img src="./monitoringplots/PMT_Temp_RWM_Reference.jpg"  width="35%" height="40%">
 
@@ -140,6 +166,23 @@ Monitoring</span>
 </div>
   </main>
 </div>
+
+<!-- <script>
+
+function showcompstats() {
+
+  $(document).ready(function(){
+   
+   $('#content1').load("./DAQ/compstatsVME01");
+   $('#content2').load("./DAQ/compstatsVME02");
+   $('#content3').load("./DAQ/compstatsVME03");
+});
+
+}
+
+setInterval(showcompstats, 3000);
+
+</script> -->
 
 </body>
                                                                                                                              
